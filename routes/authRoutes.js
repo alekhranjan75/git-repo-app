@@ -5,6 +5,12 @@ const router = express.Router();
 //Calls passport controller to be used by router
 require('../controller/passport')
 
+// Redirect Path
+let redirectPath  = 'http://localhost:3000/'
+if (process.env.NODE_ENV === 'production') {
+    redirectPath = '/'
+}
+
 //Login Url
 router.get('/auth/git',
     passport.authenticate('github', {
@@ -18,7 +24,7 @@ router.get('/auth/git/callback',
     }),
     (req, res) => {
         // Successful authentication, redirect home.
-        res.redirect('/');
+        res.redirect(redirectPath);
     });
 
 //Logout Route
@@ -26,7 +32,7 @@ router.get('/api/logout', (req, res) => {
     //request to logout
     req.logout()
     // Successful logout, redirect home.
-    res.redirect('/');
+    res.redirect(redirectPath);
     console.log("Logged Out!!!")
 })
 
