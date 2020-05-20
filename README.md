@@ -17,6 +17,8 @@ npm install
 
 >Set-up [GitHub OAuth](https://auth0.com/docs/connections/social/github)
 
+>Set Homepage URL and Authorization callback URL as- http://localhost:5000/ & http://localhost:5000/auth/git/callback respectively
+
 >Add the GitHub ClientId and ClientSecret to the 'devProps.js' file(inside config folder)
 
 >To run the app(from app root directory)
