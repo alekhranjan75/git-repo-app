@@ -9,7 +9,7 @@ const cookieKey = require('./config/properties').cookieKey
 const authRoutes = require('./routes/authRoutes')
 
 const app = express()
-
+//connect to monogoDB Atlas
 mongoose.connect(mongoURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -21,6 +21,7 @@ mongoose.connect(mongoURI, {
     )
     .then(() => console.log("Success"))
     .catch(() => console.log("Something went wrong"))
+//Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(bodyParser.json())
 
 //It extracts the cookie Data
@@ -47,6 +48,7 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
 }
+//set port
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {

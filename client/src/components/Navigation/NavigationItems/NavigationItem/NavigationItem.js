@@ -1,4 +1,6 @@
+/* Creating the single Navigation Item component that is placed inside the header of the Layout */
 import React from 'react'
+//Styles defined for Navigation inside this file 
 import styles from './NavigationItem.module.css'
 import { NavLink } from 'react-router-dom'
 

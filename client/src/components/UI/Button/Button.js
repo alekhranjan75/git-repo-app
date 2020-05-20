@@ -1,3 +1,4 @@
+/* The custom button Component */
 import React from 'react'
 import styles from './Button.module.css'
 

@@ -1,3 +1,4 @@
+/* The single repo component that defines the elements it has inside it */
 import React, { Component } from 'react'
 import './Repo.css'
 class Repo extends Component {

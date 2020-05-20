@@ -1,3 +1,4 @@
+//Keys for production mode
 module.exports = {
     gitHubClientID: process.env.GITHUB_CLIENT_ID,
     gitHubClientSecret: process.env.GITHUB_CLIENT_SECRET,

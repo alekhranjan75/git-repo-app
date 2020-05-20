@@ -1,3 +1,4 @@
+/* The toolbar of the app */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -18,6 +19,7 @@ class Toolbar extends Component {
                         <div></div>
                 </div>
                 <nav className = {styles.DesktopOnly}>
+                    {/* Passing the authenticated props to NavigationItems */}
                     <NavigationItems isAuth = {this.props.isAuthenticated}/>
                 </nav>
 
@@ -25,10 +27,13 @@ class Toolbar extends Component {
         )
     }
 }
+// mapStateToProps is used for selecting the part of the data from the store that the connected component needs.
+// Here we need the userId of the auth store to check if the user is authenticated
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.userId
     }
 }
 
+// connect to react-redux store
 export default connect(mapStateToProps)(Toolbar);

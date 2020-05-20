@@ -1,3 +1,4 @@
+/* The side navigation menu  for media queries (small devices)*/
 import React from 'react'
 import NavigationItems from '../NavigationItems/NavigationItems'
 import styles from './SideDrawer.module.css'
@@ -11,9 +12,11 @@ const sideDrawer = (props) => {
     }
     return (
         <div>
+            {/* The Backdrop */}
             <Backdrop show = {props.open} clicked = {props.closed}/>
             <div className = {attachedClass.join(" ")} onClick = {props.closed}>
             <nav>
+                {/* The Navigation items inside it */}
                 <NavigationItems isAuth = {props.isAuthenticated}/>
             </nav>
         </div>

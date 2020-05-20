@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// create a schema
+// create a schema that stores the githubID
 const userSchema = new Schema({
     githubID: String
 });

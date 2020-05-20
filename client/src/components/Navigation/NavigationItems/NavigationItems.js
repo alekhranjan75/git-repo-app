@@ -1,3 +1,4 @@
+/* All the navigation links  */
 import React, { useEffect, useState } from 'react'
 
 import styles from './NavigationItems.module.css'
@@ -11,16 +12,19 @@ const NavigationItems = (props) => {
     }, [user])
     return (
         <ul className = {styles.NavigationItems}>
+            {/* The home Page  */}
             <NavigationItem link = '/' exact>
                 Home
             </NavigationItem>
         {
+            /* Check if the user is authenticated if so display the "trending" Navigation */
             props.isAuth ? 
                 <NavigationItem link = "/trending-repo"  >
                     Trending
                 </NavigationItem> 
             :null}   
         {
+            /* Check if the user is authenticated if so display the "Logout" Navigation for the user to logout*/
             props.isAuth ? 
                 <NavigationItem link = "/logout"  exact>
                     Logout

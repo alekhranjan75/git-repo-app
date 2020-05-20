@@ -1,4 +1,5 @@
 const passport = require('passport')
+// Passport strategy for authenticating with GitHub using the OAuth 2.0 API.
 const GitHubStrategy = require('passport-github').Strategy;
 
 const properties = require('../config/properties')
@@ -19,6 +20,8 @@ passport.deserializeUser((id, done) => {
         });
 });
 
+// Configure Strategy The GitHub authentication strategy authenticates users using a GitHub account and OAuth 2.0 tokens.
+//For more documentation visit- http://www.passportjs.org/packages/passport-github/
 passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
@@ -27,6 +30,7 @@ passport.use(new GitHubStrategy({
     },
     (accessToken, refreshToken, profile, done) => {
         console.log(profile)
+        //Search in Database for the current profile id
         User.findOne({
                 githubID: profile.id
             })
@@ -36,7 +40,7 @@ passport.use(new GitHubStrategy({
                     console.log("User Already exist!!!")
                     done(null, existingUser)
                 } else {
-                    
+                    //If it's a new user save to database
                     new User({
                             githubID: profile.id
                         })

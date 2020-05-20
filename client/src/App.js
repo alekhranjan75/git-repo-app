@@ -9,9 +9,11 @@ import TrendingRepo from './components/TrendingRepo/TrendingRepo';
 
 class App extends Component {
   componentDidMount() {
+    // Check Initially if the user is logged in when the app loads
     this.props.fetchUser()
   }
     render() {
+      // Show this routes if one is not logged in
       let routes = (
       <Switch>
         <Route path="/" exact component={Home} />
@@ -20,6 +22,7 @@ class App extends Component {
       )
       if (this.props.isAuthenticated) {
         routes = (
+          // Show the following routes for one who is logged in
         <Switch>
             <Route path="/logout" component = {Logout}/>
             <Route path="/trending-repo" component = {TrendingRepo}/>
@@ -46,6 +49,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    // Action to fecth the user details from the backend
     fetchUser: () => dispatch(fetchUser())
   }
 }

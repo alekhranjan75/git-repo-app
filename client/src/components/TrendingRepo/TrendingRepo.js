@@ -1,3 +1,4 @@
+/* Trending Repo page that fetches the trending repositories based on the search arguments */
 import React, { Component } from 'react'
 import Button from '../UI/Button/Button';
 import { connect } from 'react-redux'
@@ -10,6 +11,7 @@ import { Route } from 'react-router';
 
  class TrendingRepo extends Component {
      
+    // Form to get the required search attributes
     state = {
         searchForm: {
             language: {
@@ -54,6 +56,7 @@ import { Route } from 'react-router';
         formIsValid: true
     }
 
+    // Check if the form is valid before proceeding
     validityCheck = (value, rules) => {
         let isValid = true
         if (rules) {
@@ -69,7 +72,8 @@ import { Route } from 'react-router';
         }
         return isValid
     }
-
+    
+    // Update the values of the form if any changes are made in the form element
     changedHandler = (event, id) => {
         // console.log("Input Handler Invoked", "id is", id)
         const searchFormCopy = {
@@ -96,24 +100,23 @@ import { Route } from 'react-router';
     searchHandler = (event) => {
         //Prevents from reloading the page that caused loss of Data
         event.preventDefault();
-        // this.setState({
-        //     loading: true
-        // });
+        
+        // Store the value of the form in an object
         const searchDetails = {}
         for (let data in this.state.searchForm) {
             searchDetails[data] = this.state.searchForm[data].value;
         }
-        // console.log("Price of burger:",this.props.price)
-        // const order = {
-        //     data: searchDetails,
-        // }
+        // Based on the form attributes call the below method, which is basically used to feth the data
         this.props.searchTrendingRepos(searchDetails)
+
+        // Pushes the new route on the same page
         this.props.history.replace('/trending-repo/repo-list')
         
     }
     
     
     render() {
+        // Creating an array of the form elements
         let formElements = []
         for (let key in this.state.searchForm) {
             formElements.push({
@@ -121,10 +124,13 @@ import { Route } from 'react-router';
                 properties: this.state.searchForm[key]
             })
         }
-
+        
+         
         let form = (
+            // On form submit call the "searchHandler" method
             <form onSubmit = {this.searchHandler}>
                 {formElements.map(ele => {
+                    // Based on the type of input every form elements takes we map it to the required type of input
                     return(
                         <Input 
                             key = {ele.id}
@@ -156,15 +162,13 @@ import { Route } from 'react-router';
     }
  }
 
-const mapStateToProps = state => {
-    return {
-        repos: state.repo.trendingRepos
-    }
-}
+ 
+//  dispatch the action to the store which is defined inside the "actionAuth" file
 const mapDispatchToProps = dispatch => {
     return {
+        // It passes the search attributes, that the user sets in the form, which is used by the action dispatcher to make request from the api
         searchTrendingRepos: (searchDetails) => dispatch(searchTrendingRepos(searchDetails))
     }
 }
-// export default TrendingRepo
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingRepo);
+// connect to the store
+export default connect(null, mapDispatchToProps)(TrendingRepo);

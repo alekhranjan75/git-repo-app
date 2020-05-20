@@ -9,8 +9,6 @@ import App from './App';
 import reducerAuth from './store/reducer/reducerAuth';
 import reducerRepo from './store/reducer/reducerRepo';
 
-// import axios from 'axios'
-// window.axios = axios
 
 //For using redux Devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,8 +18,6 @@ const rootReducer = combineReducers({
     auth: reducerAuth,
     repo: reducerRepo
 })
-//SagaMiddleware
-// const sagaMiddleware = createSagaMiddleware();
 
 //store
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
