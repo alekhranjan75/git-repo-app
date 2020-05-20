@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Layout from './components/Layout/Layout';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Home from './components/Home/Home';
+import { connect } from 'react-redux';
+import { fetchUser } from './store/action/actionAuth';
+import Logout from './components/Logout/Logout';
+import TrendingRepo from './components/TrendingRepo/TrendingRepo';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser()
+  }
+    render() {
+      let routes = (
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Redirect to="/" />
+      </Switch>
+      )
+      if (this.props.isAuthenticated) {
+        routes = (
+        <Switch>
+            <Route path="/logout" component = {Logout}/>
+            <Route path="/trending-repo" component = {TrendingRepo}/>
+            <Route path="/" exact component={Home} />
+            <Redirect to="/" />
+        </Switch>
+        )
+      }
+      return (
+        <BrowserRouter>
+          <Layout>
+            {routes}
+          </Layout>
+        </BrowserRouter>
+      
+      )
+    }
+}
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.userId
+  }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUser: () => dispatch(fetchUser())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

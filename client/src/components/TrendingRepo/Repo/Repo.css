@@ -1,0 +1,23 @@
+.Repo {
+    width: 60%;
+    margin: 20px auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px gray;
+    padding: 16px;
+    text-align: center;
+}
+.A:link {
+    text-decoration: none;
+}
+
+.A:visited {
+    text-decoration: none;
+}
+
+.A:hover {
+    text-decoration: underline;
+}
+
+.A:active {
+    text-decoration: underline;
+}

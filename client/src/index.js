@@ -1,17 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+
+import './index.css'
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import reducerAuth from './store/reducer/reducerAuth';
+import reducerRepo from './store/reducer/reducerRepo';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// import axios from 'axios'
+// window.axios = axios
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//For using redux Devtools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+//Combining reducers
+const rootReducer = combineReducers({
+    auth: reducerAuth,
+    repo: reducerRepo
+})
+//SagaMiddleware
+// const sagaMiddleware = createSagaMiddleware();
+
+//store
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+
+ReactDOM.render(<Provider store = {store}><App /></Provider>
+, document.getElementById('root'));
